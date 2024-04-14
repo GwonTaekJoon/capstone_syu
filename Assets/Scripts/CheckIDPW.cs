@@ -34,7 +34,7 @@ public class CheckIDPW : MonoBehaviour
             yourID.text = savedID;
             yourID.gameObject.SetActive(true);
         }
-        else if (inputNick.text != savedNick && inputNick.text is not null)
+        else if (inputNick.text != savedNick || inputNick is null)
         {
             yourID.text = "not exist";
             yourID.gameObject.SetActive(true);
