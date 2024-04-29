@@ -18,6 +18,25 @@ public class PlayerProfs : MonoBehaviour
     // Start is called before the first frame update
     public void Save()
     {
+        if (string.IsNullOrEmpty(inputID.text) || string.IsNullOrEmpty(inputPW.text) || 
+            string.IsNullOrEmpty(inputPhoneNum.text) || string.IsNullOrEmpty(inputNick.text) ||
+            string.IsNullOrEmpty(inputHeight.text) || string.IsNullOrEmpty(inputWeight.text) ||
+            string.IsNullOrEmpty(inputGender.text) || string.IsNullOrEmpty(inputCheckPW.text))
+        {
+            ToastMsg.text = "Please fill in all fields.";
+            ToastMsg.color = Color.black;
+            ToastMsg.gameObject.SetActive(true);
+            return;
+        }
+
+        if (inputPW.text != inputCheckPW.text)
+        {
+            ToastMsg.text = "Password and confirm password do not match.";
+            ToastMsg.color = Color.red;
+            ToastMsg.gameObject.SetActive(true);
+            return;
+        }
+
         PlayerPrefs.SetString("ID",inputID.text);
         PlayerPrefs.SetString("PW",inputPW.text);
         PlayerPrefs.SetString("CheckPW",inputCheckPW.text);
@@ -26,8 +45,10 @@ public class PlayerProfs : MonoBehaviour
         PlayerPrefs.SetString("Gender",inputGender.text);
         PlayerPrefs.SetFloat("Height",float.Parse(inputHeight.text));
         PlayerPrefs.SetFloat("Weight",float.Parse(inputWeight.text));
-      
+
         ToastMsg.text = "User data is saved.";
+        ToastMsg.color = Color.blue;
         ToastMsg.gameObject.SetActive(true);
+
     }
 }

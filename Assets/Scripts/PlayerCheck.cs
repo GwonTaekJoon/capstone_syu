@@ -14,15 +14,26 @@ public class PlayerCheck : MonoBehaviour
         string savedID = PlayerPrefs.GetString("ID");
         string savedPW = PlayerPrefs.GetString("PW");
 
-        if (inputID.text == savedID && inputPW.text == savedPW)
+        if (string.IsNullOrEmpty(inputID.text) || string.IsNullOrEmpty(inputPW.text))
         {
-            // ID와 PW가 일치할 때 다음 페이지로 이동
-            SceneManager.LoadScene("WorkoutPage"); // 다음 화면의 씬 이름을 입력하세요
+            errorMessageText.text = "Plase fill in ID / PW";
+            errorMessageText.color = Color.black;
+            errorMessageText.gameObject.SetActive(true);
         }
-        else
+        else if (inputID.text == savedID && inputPW.text == savedPW)
         {
-            // ID나 PW가 일치하지 않을 때 처리
-            errorMessageText.text = "ID or PW is not match.";
+            SceneManager.LoadScene("WorkoutPage");
+        }
+        else if (inputID.text != savedID)
+        {
+            errorMessageText.text = "This ID does not exist";
+            errorMessageText.color = Color.red;
+            errorMessageText.gameObject.SetActive(true);
+        }
+        else if (inputPW.text != savedPW)
+        {
+            errorMessageText.text = "This PW does not exist";
+            errorMessageText.color = Color.red;
             errorMessageText.gameObject.SetActive(true);
         }
     }
