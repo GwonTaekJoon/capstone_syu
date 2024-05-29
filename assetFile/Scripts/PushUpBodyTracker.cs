@@ -103,13 +103,33 @@ public class PushUpBodyTracker : MonoBehaviour
         string[] countdownMessages = {"Get Ready!", "3", "2", "1", "!START!" };
         float[] waitTimes = {3f, 1f, 1f, 1f, 1f };
 
+        // Outline 컴포넌트를 추가합니다.
+        Outline outline = TimerMsg.GetComponent<Outline>();
+        if (outline == null)
+        {
+            outline = TimerMsg.gameObject.AddComponent<Outline>();
+            outline.effectColor = Color.black; // 테두리 색상
+            outline.effectDistance = new Vector2(2, 2); // 테두리 두께
+        }
+
+        // Shadow 컴포넌트를 추가합니다.
+        Shadow shadow = TimerMsg.GetComponent<Shadow>();
+        if (shadow == null)
+        {
+            shadow = TimerMsg.gameObject.AddComponent<Shadow>();
+            shadow.effectColor = Color.black; // 그림자 색상
+            shadow.effectDistance = new Vector2(2, -2); // 그림자 위치
+        }
+
         for (int i = 0; i < countdownMessages.Length; i++)
         {
             // 메시지를 출력합니다.
             if (TimerMsg != null)
             {
                 TimerMsg.text = countdownMessages[i];
-                TimerMsg.color = Color.black;
+                TimerMsg.color = Color.green;
+                TimerMsg.fontSize = 80;
+                TimerMsg.fontStyle = FontStyle.Bold;
                 TimerMsg.gameObject.SetActive(true);
             }
 
